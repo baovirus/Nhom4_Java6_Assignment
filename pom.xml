@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.poly</groupId>
-	<artifactId>Java6-Assignment</artifactId>
+	<artifactId>Nhom4_Java6_Assignment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Java6-Assignment</name>
-	<description>Dự Án Tốt Nghiệp của nhóm 4</description>
+	<name>Nhom4_Java6_Assignment</name>
+	<description>Assignment Java 6 Nhóm 4</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,7 +30,13 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-				
+	<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+<dependency>
+    <groupId>javax.persistence</groupId>
+    <artifactId>javax.persistence-api</artifactId>
+    <version>2.2</version>
+</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
