@@ -45,18 +45,18 @@ public class DefaultController {
 	}
 	@RequestMapping("/login")
 	public String login() {
-		return ("auth/login");
+		return ("account/login");
 	}
 	@GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("user", new Account());
-        return "auth/register";
+        return "account/register";
     }
 
     @PostMapping("/register")
     public String processRegister(@ModelAttribute("user") Account user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "auth/register";
+            return "account/register";
         }
 
         try {
@@ -70,6 +70,18 @@ public class DefaultController {
     }
 	@RequestMapping("/forgot-password")
 	public String forgot_password() {
-		return ("auth/forgot-password");
+		return ("account/forgot-password");
+	}
+	@RequestMapping("/profile")
+	public String profile() {
+		return ("account/profile");
+	}
+	@RequestMapping("/my-cart")
+	public String my_cart() {
+		return ("cart/my-cart");
+	}
+	@RequestMapping("/my-order")
+	public String my_order() {
+		return ("order/my-order");
 	}
 }
