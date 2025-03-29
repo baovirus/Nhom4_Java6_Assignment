@@ -1,0 +1,18 @@
+@charset "UTF-8";
+.main-side-bar, .main-article {
+    min-height: 500px;
+    max-height: 900px;
+    overflow: auto; /* Để có thể cuộn khi nội dung quá dài */
+    scrollbar-width: none; /* Ẩn scrollbar trên Firefox */
+    -ms-overflow-style: none; /* Ẩn scrollbar trên IE và Edge */
+}
+
+/* Ẩn scrollbar trên Chrome, Safari */
+.main-side-bar::-webkit-scrollbar,
+.main-article::-webkit-scrollbar {
+    display: none;
+}
+
+.article-content{
+	min-height: 500px;
+}

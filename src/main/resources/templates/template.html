@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="background-color: #F5F5FA;">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trang Chủ</title>
+<title>Template</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -21,11 +21,11 @@
 
 <!-- CSS Custom -->
 <link rel="stylesheet" th:href="@{/css/menu.css}">
+<link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
 
 <body>
-
-	<div class="container-fluid m-0 p-0">
+	<div class="container-fluid m-0 p-0" >
 		<!-- HEADER -->
 		<header class="row">
 			<!-- NAV MENU -->
@@ -34,32 +34,14 @@
 		</header>
 
 		<!-- Body -->
-		<div class="container-fluid d-flex justify-content-center mx-0 p-0">
+		<div
+			class="container-fluid d-flex justify-content-center mx-0 mt-4 p-0">
 			<!-- Main Content -->
-			<div class="row container m-0 p-0">
-				<!-- Bản tin -->
-				<div class="row container m-0 p-0">
-					<!-- Article -->
-					<article class="col-sm-0 col-md-2 bg-success">
-						<div class="container-fluid">
-
-							<!-- <div th:replace="/components/news.html"></div> -->
-
-						</div>
-					</article>
-
-					<!-- Aside right - Category -->
-					<aside class="col-sm-12 col-md-10 p-2 bg-danger">
-						
-					</aside>
-				</div>
-
-
+			<div class="container-fluid mx-5 p-0">
+				
 			</div>
 		</div>
-		<!-- Footer -->
-		<footer class="bg-warning p-0 m-0"
-			th:replace="/components/_footer.html"></footer>
+
 	</div>
 
 
