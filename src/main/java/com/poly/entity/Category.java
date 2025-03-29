@@ -1,26 +1,16 @@
 package com.poly.entity;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.*;
 import lombok.Data;
-@SuppressWarnings("serial")
+
+@Entity
 @Data
-@Entity 
 @Table(name = "Categories")
-public class Category implements Serializable{
-	@Id
-	String id;
-	String name;
-	@JsonIgnore
-	@OneToMany(mappedBy = "category")
-	List<Product> products;
-	
+public class Category {
+    @Id
+    @Column(length = 4, nullable = false)
+    private String id;
+
+    @Column(length = 50, nullable = false)
+    private String name;
 }

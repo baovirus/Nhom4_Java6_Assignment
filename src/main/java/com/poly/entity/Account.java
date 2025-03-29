@@ -1,34 +1,25 @@
 package com.poly.entity;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.*;
 import lombok.Data;
 
-@SuppressWarnings("serial")
+@Entity
 @Data
-@Entity 
 @Table(name = "Accounts")
-public class Account  implements Serializable{
-	@Id
-	String username;
-	String password;
-	String fullname;
-	String email;
-	String photo;
-	@JsonIgnore
-	@OneToMany(mappedBy = "account")
-	List<Order> orders;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-	List<Authority> authorities;
+public class Account {
+    @Id
+    @Column(length = 50, nullable = false)
+    private String username;
+
+    @Column(length = 50, nullable = false)
+    private String password;
+
+    @Column(length = 50, nullable = false)
+    private String fullname;
+
+    @Column(length = 50, nullable = false)
+    private String email;
+
+    @Column(length = 50, nullable = false)
+    private String photo;
 }

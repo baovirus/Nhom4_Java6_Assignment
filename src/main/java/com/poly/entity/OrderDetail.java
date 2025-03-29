@@ -1,31 +1,27 @@
 package com.poly.entity;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import jakarta.persistence.*;
 import lombok.Data;
 
-@SuppressWarnings("serial")
+@Entity
 @Data
-@Entity 
-@Table(name = "Orderdetails")
-public class OrderDetail  implements Serializable{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	Double price;
-	Integer quantity;
-	@ManyToOne
-	@JoinColumn(name = "Productid")
-	Product product;
-	@ManyToOne
-	@JoinColumn(name = "Orderid")
-	Order order;
+@Table(name = "OrderDetails")
+public class OrderDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "OrderId", nullable = false)
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "ProductId", nullable = false)
+    private Product product;
+
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
+    private Integer quantity;
 }
