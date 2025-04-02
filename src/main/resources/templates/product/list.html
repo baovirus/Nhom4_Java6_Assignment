@@ -25,7 +25,7 @@
 <link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
 
-<body>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 	<div class="container-fluid m-0 p-0" style="background-color: #F5F5FA;">
 		<!-- HEADER -->
 		<header class="row">
@@ -34,8 +34,8 @@
 
 		</header>
 
-		
-			
+
+
 		<!-- Body -->
 		<div
 			class="container-fluid d-flex justify-content-center mx-0 mt-4 p-0">
@@ -48,7 +48,8 @@
 							<h5 class="my-3">Danh mục</h5>
 
 							<div class="border-top py-2" th:each="c : ${categories}">
-								<a th:href="@{'/category/' + ${c.id}}" th:text="${c.name}" class="text-decoration-none"></a>
+								<a th:href="@{'/category/' + ${c.id}}" th:text="${c.name}"
+									class="text-decoration-none"></a>
 							</div>
 
 						</div>
@@ -62,6 +63,7 @@
 							<hr>
 
 							<div class="row">
+
 								<div class="col-md-3 mb-3" th:each="p : ${products}">
 									<div class="card product-card">
 										<!-- Ảnh sản phẩm -->
@@ -86,9 +88,10 @@
 
 											<!-- Nút mua hàng -->
 											<div class="container grid gap-3">
-												<a href="#" class="g-col-6 btn btn-primary"> <i
+												<a th:attr="ng-click=@{|cart.add(${p.id})|}" class="g-col-6 btn btn-primary"> <i
 													class="bi bi-cart-plus"></i> Thêm
-												</a> <a th:href="@{'/product/' + ${p.id}}" class="-gcol-6 btn btn-primary"> <i
+												</a> <a th:href="@{'/product/' + ${p.id}}"
+													class="-gcol-6 btn btn-primary"> <i
 													class="bi bi-cart-plus"></i> Chi tiết
 												</a>
 											</div>
@@ -99,8 +102,8 @@
 						</div>
 						<!-- Footer -->
 						<footer th:replace="/components/_footer.html"></footer>
-						
-						
+
+
 					</article>
 				</div>
 			</div>
@@ -108,7 +111,7 @@
 
 	</div>
 
-
+	<script src="/js/shopping-cart-app.js"></script>
 
 </body>
 

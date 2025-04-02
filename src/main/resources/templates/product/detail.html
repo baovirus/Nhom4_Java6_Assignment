@@ -42,16 +42,16 @@
 				<div class="row">
 					<!-- ẢNH SẢN PHẨM -->
 					<div class="col-3 ">
-						<div class="container bg-white">
+						<div class="container bg-white p-3">
 							<img th:src="@{'/image/product_image/' + ${product.image}}"
-								class="border border-2 border-white rounded" alt="thumbnail"
+								class="border border-2 rounded" alt="thumbnail"
 								style="height: 300px; width: 100%">
 						</div>
 					</div>
 
 					<!-- THÔNG TIN SẢN PHẨM -->
 					<div class="col-6">
-						<div class="container bg-white mb-3">
+						<div class="container bg-white mb-3 p-3">
 							<h1 class="fw-bold">
 								<span th:text="${product.name.toUpperCase()}"></span>
 							</h1>
@@ -66,8 +66,9 @@
 							</h5>
 						</div>
 
-						<div class="container bg-white main-article">
-							<h3 class="py-3">Sản phẩm cùng loại</h3>
+						<div class="container bg-white main-article p-3">
+							<h3 class="">Sản phẩm cùng loại</h3>
+							<hr>
 							<div class="row">
 								<div class="col-md-4 mb-3" th:each="p : ${relatedProducts}">
 									<div class="card product-card">
@@ -77,8 +78,7 @@
 
 										<div class="card-body">
 											<!-- Tên sản phẩm -->
-											<h5 class="card-title text-truncate" th:text="${p.name}">Tên
-												sản phẩm</h5>
+											<h5 class="card-title text-truncate" th:text="${p.name}"></h5>
 
 											<!-- Danh mục -->
 											<p class="card-text text-muted">
