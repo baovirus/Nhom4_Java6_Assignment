@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}"
+	style="background-color: #F5F5FA;">
+
+<body>
+	<main>
+		<div class="row container m-0 p-0">
+			<!-- Article -->
+			<article class="col-sm-12 col-md-10 main-article bg-white border rounded">
+				<h3 class="my-3">SẢN PHẨM</h3>
+				<hr>
+
+				<div class="row">
+					<div class="col-md-3 mb-3" th:each="p : ${products}">
+						<div class="card product-card">
+
+							<img th:src="@{/image/product_image/{img}(img=${p.image})}"
+								class="card-img-top" alt="Sản phẩm" style="height: 200px;">
+
+							<div class="card-body">
+
+								<h5 class="card-title text-truncate" th:text="${p.name}">Tên
+									sản phẩm</h5>
+
+
+								<p class="card-text text-muted">
+									<span th:text="${p.category.name}"></span>
+								</p>
+
+
+								<h5 class="text-danger fw-bold">
+									$ <span
+										th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')}"></span>
+								</h5>
+
+
+								<div class="container grid gap-3">
+									<a th:attr="ng-click=@{|cart.add(${p.id})|}"
+										class="g-col-6 btn btn-primary"> <i
+										class="bi bi-cart-plus"></i> Thêm
+									</a> <a th:href="@{'/product/' + ${p.id}}"
+										class="-gcol-6 btn btn-primary"> <i
+										class="bi bi-cart-plus"></i> Chi tiết
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</article>
+
+			<!-- Aside -->
+			<aside class="col-sm-0 col-md-2 p-2 main-side-bar">
+				<div th:replace="/components/_category.html"></div>
+			</aside>
+
+		</div>
+
+	</main>
+</body>
+
+</html>

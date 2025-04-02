@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}"
+	style="background-color: #F5F5FA;">
+
+<body>
+	<main>
+			<!-- Main Content -->
+			<div class="container-fluid mx-5 p-0">
+				<div class="row">
+					<!-- ẢNH SẢN PHẨM -->
+					<div class="col-3 ">
+						<div class="container bg-white p-3">
+							<img th:src="@{'/image/product_image/' + ${product.image}}"
+								class="border border-2 rounded" alt="thumbnail"
+								style="height: 300px; width: 100%">
+						</div>
+					</div>
+
+					<!-- THÔNG TIN SẢN PHẨM -->
+					<div class="col-6">
+						<div class="container bg-white mb-3 p-3">
+							<h1 class="fw-bold">
+								<span th:text="${product.name.toUpperCase()}"></span>
+							</h1>
+
+							<h3 class="text-danger fw-bold">
+								<span class="text-black">Giá:</span> $<span
+									th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></span>
+							</h3>
+							<h5 class="">
+								<span class="text-black">Danh mục: </span><span
+									th:text="${product.category.name}"></span>
+							</h5>
+						</div>
+
+						<div class="container bg-white main-article p-3">
+							<h3 class="">Sản phẩm cùng loại</h3>
+							<hr>
+							<div class="row">
+								<div class="col-md-4 mb-3" th:each="p : ${relatedProducts}">
+									<div class="card product-card">
+										<!-- Ảnh sản phẩm -->
+										<img th:src="@{/image/product_image/{img}(img=${p.image})}"
+											class="card-img-top" alt="Sản phẩm" style="height: 200px;">
+
+										<div class="card-body">
+											<!-- Tên sản phẩm -->
+											<h5 class="card-title text-truncate" th:text="${p.name}"></h5>
+
+											<!-- Danh mục -->
+											<p class="card-text text-muted">
+												<span th:text="${p.category.name}"></span>
+											</p>
+
+											<!-- Giá sản phẩm -->
+											<h5 class="text-danger fw-bold">
+												$ <span
+													th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')}"></span>
+											</h5>
+
+											<!-- Nút mua hàng -->
+											<div class="container grid gap-3">
+												<a th:href="@{'/product/' + ${p.id}}"
+													class="-gcol-6 btn btn-primary"> <i
+													class="bi bi-cart-plus"></i> Chi tiết
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- CÁC NÚT -->
+					<div class="col-3">
+						<div class="container bg-white p-4">
+							<h5>Số lượng</h5>
+							<input type="number" class="form-control mb-3">
+							<h5>Tạm tính</h5>
+							<h3>$ 69.00</h3>
+						<hr>
+							<a href="#" class="container-fluid btn btn-danger mb-3"> <i
+								class="bi bi-cart-plus"></i> Mua ngay
+							</a> <a th:attr="ng-click=@{|cart.add(${product.id})|}" class="container-fluid btn btn-primary"> <i
+								class="bi bi-cart-plus"></i> Thêm vào giỏ hàng
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	</main>
+
+
+
+</body>
+
+</html>

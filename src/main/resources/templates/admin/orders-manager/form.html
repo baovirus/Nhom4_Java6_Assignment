@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" style="background-color: #F5F5FA;">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	style="background-color: #F5F5FA;">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Template</title>
+<title>Bảng điều khiển</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -25,23 +26,36 @@
 </head>
 
 <body>
-	<div class="container-fluid m-0 p-0" >
+	<div class="container-fluid m-0 p-0">
 		<!-- HEADER -->
 		<header class="row">
 			<!-- NAV MENU -->
 			<div th:replace="/components/_menu.html"></div>
-
 		</header>
 
 		<!-- Body -->
-		<div
-			class="container-fluid d-flex justify-content-center mx-0 mt-4 p-0">
-			<!-- Main Content -->
-			<div class="container-fluid mx-5 p-0">
-				
+		<div class="container-fluid mx-0 p-0">
+			<!-- Nội dung trang web -->
+			<div class="container-fluid mx-0 p-0">
+				<div class="row mx-0 p-0">
+					<div class="col-2 mx-0 p-0">
+						<div th:replace="/components/_sidebar.html"></div>
+					</div>
+					<div class="col-10">
+						<div class="container table-container"
+							style="position: relative; margin-top: 50px; min-height: 500px;">
+							<h2 class="form-title">BẢNG ĐIỀU KHIỂN</h2>
+
+
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
+		<!-- Footer -->
+		<footer class="bg-body-tertiary p-0 m-0"
+			th:replace="/components/_footer.html"></footer>
 	</div>
 
 
