@@ -1,0 +1,9 @@
+<div class="container-fluid bg-white border rounded h-100">
+	<h5 class="my-3">Danh mục</h5>
+
+	<div class="border-top py-2" th:each="c : ${categories}">
+		<a th:href="@{'/product/category/' + ${c.id}}" th:text="${c.name}"
+			class="text-decoration-none"></a>
+	</div>
+
+</div>
