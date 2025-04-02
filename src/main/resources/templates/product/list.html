@@ -7,13 +7,11 @@
 	<main>
 		<div class="row container m-0 p-0">
 			<!-- Article -->
-			<article class="col-sm-12 col-md-10 p-2 main-article">
+			<article class="col-sm-12 col-md-10 main-article bg-white border rounded">
 				<h3 class="my-3">SẢN PHẨM</h3>
 				<hr>
 
 				<div class="row">
-
-
 					<div class="col-md-3 mb-3" th:each="p : ${products}">
 						<div class="card product-card">
 
@@ -56,7 +54,6 @@
 
 			<!-- Aside -->
 			<aside class="col-sm-0 col-md-2 p-2 main-side-bar">
-				<div th:replace="/components/_cart-info.html"></div>
 				<div th:replace="/components/_category.html"></div>
 			</aside>
 

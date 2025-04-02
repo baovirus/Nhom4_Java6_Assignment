@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:fragment="dynamic(main)" style="background-color: #F5F5FA;">
+	style="background-color: #F5F5FA;">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Danh sách sản phẩm</title>
+<title>Bảng điều khiển</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -22,36 +22,41 @@
 
 <!-- CSS Custom -->
 <link rel="stylesheet" th:href="@{/css/menu.css}">
-<link rel="stylesheet" th:href="@{/css/login.css}">
 <link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
 
-<!--  nhớ để vô lại --> 
-
-<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
-	<div class="container-fluid m-0 p-0" style="background-color: #F5F5FA;">
+<body>
+	<div class="container-fluid m-0 p-0">
 		<!-- HEADER -->
 		<header class="row">
 			<!-- NAV MENU -->
-			 <div th:replace="/components/_menu.html"></div> 
+			<div th:replace="/components/_menu.html"></div>
 		</header>
 
 		<!-- Body -->
-		<div
-			class="container-fluid d-flex justify-content-center mx-0 mt-4 p-0">
-			<!-- Main Content -->
-			<div class="row container-fluid mx-5 p-0">
-				
-					<main th:replace="${main}"></main>
-					<!-- Footer -->
-					<footer th:replace="/components/_footer.html"></footer>
+		<div class="container-fluid mx-0 p-0">
+			<!-- Nội dung trang web -->
+			<div class="container-fluid mx-0 p-0">
+				<div class="row mx-0 p-0">
+					<div class="col-2 mx-0 p-0">
+						<div th:replace="/components/_sidebar.html"></div>
+					</div>
+					<div class="col-10">
+						<div class="container table-container"
+							style="position: relative; margin-top: 50px; min-height: 500px;">
+							<h2 class="form-title">BẢNG ĐIỀU KHIỂN</h2>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
+		<!-- Footer -->
+		<footer class="bg-body-tertiary p-0 m-0"
+			th:replace="/components/_footer.html"></footer>
+	</div>
 
 
-	<script src="/js/shopping-cart-app.js"></script>
 
 </body>
 

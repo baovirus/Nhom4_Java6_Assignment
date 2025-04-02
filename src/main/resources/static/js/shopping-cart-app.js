@@ -1,12 +1,11 @@
 const app = angular.module("shopping-cart-app", []);
 
-app.controller("shopping-cart-ctrl", function($scope, $http) {
-
+app.controller("shopping-cart-ctrl", function ($scope, $http) {
 	$scope.cart = {
 		items: [],
 
+		// Thêm sản phẩm vào giỏ hàng
 		add(id) {
-			//alert("added: "+ id)
 			var item = this.items.find(item => item.id == id);
 			if (item) {
 				item.qty++;
@@ -16,39 +15,66 @@ app.controller("shopping-cart-ctrl", function($scope, $http) {
 					resp.data.qty = 1;
 					this.items.push(resp.data);
 					this.saveToLocalStorage();
-				})
+				}).catch(error => {
+					console.error("Lỗi khi lấy sản phẩm:", error);
+				});
 			}
 		},
 
-		remove(id) { },
+		// Xóa sản phẩm khỏi giỏ hàng
+		remove(id) {
+			var index = this.items.findIndex(item => item.id == id);
+			if (index !== -1) {
+				this.items.splice(index, 1);
+				this.saveToLocalStorage();
+			}
+		},
 
-		clear(id) { },
+		// Xóa toàn bộ giỏ hàng
+		clear() {
+			this.items = [];
+			this.saveToLocalStorage();
+		},
 
-		amt_of(item) { },
-
+		// Tính tổng số lượng sản phẩm trong giỏ hàng
 		get count() {
-			return this.items
-				.map(item => item.qty)
-				.reduce((total, qty) => total += qty, 0);
+			return Array.isArray(this.items) 
+				? this.items.reduce((total, item) => total + (item.qty || 0), 0)
+				: 0;
 		},
 
+		// Tính tổng tiền trong giỏ hàng
 		get amount() {
-			return this.items
-				.map(item => item.qty * item.price)
-				.reduce((total, qty) => total += qty, 0);
+			return Array.isArray(this.items) 
+				? this.items.reduce((total, item) => total + (item.qty * (item.price || 0)), 0)
+				: 0;
 		},
 
+		// Lưu giỏ hàng vào localStorage
 		saveToLocalStorage() {
-			var json = JSON.stringify(angular.copy(this.items));
-			localStorage.setItem("cart", json);
+			try {
+				localStorage.setItem("cart", JSON.stringify(this.items));
+			} catch (error) {
+				console.error("Lỗi khi lưu vào localStorage:", error);
+			}
 		},
 
+		// Tải giỏ hàng từ localStorage
 		loadFromLocalStorage() {
-			var json = localStorage.getItem("cart");
-			this.items = json ? JSON.parse(json) : [];
+			try {
+				var json = localStorage.getItem("cart");
+				this.items = json ? JSON.parse(json) : [];
+				// Đảm bảo dữ liệu sau khi parse là một mảng
+				if (!Array.isArray(this.items)) {
+					this.items = [];
+				}
+			} catch (error) {
+				console.error("Lỗi khi load từ localStorage:", error);
+				this.items = [];
+			}
 		}
-
 	}
-	$scope.cart.loadFromLocalStorage();
 
-})
+	// Tải giỏ hàng khi trang load
+	$scope.cart.loadFromLocalStorage();
+});
