@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.entity.Category;
 import com.poly.entity.Product;
-import com.poly.service.AccountService;
 import com.poly.service.CategoryService;
 import com.poly.service.ProductService;
 
@@ -21,8 +20,6 @@ public class ProductController {
 	private CategoryService categoryService;
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	private AccountService accountService;
 
 	@RequestMapping("/list")
 	public String index(Model model) {
