@@ -1,16 +1,25 @@
 package com.poly.entity;
 
-import jakarta.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-@Entity
+@SuppressWarnings("serial")
 @Data
-@Table(name = "Roles")
-public class Role {
-    @Id
-    @Column(length = 10, nullable = false)
-    private String id;
-
-    @Column(length = 50, nullable = false)
-    private String name;
+@Entity
+@Table(name = "roles")
+public class Role implements Serializable {
+	@Id
+	private String id;
+	private String name;
+	@JsonIgnore
+	@OneToMany(mappedBy = "role")
+	List<Authority> authorities;
 }
