@@ -1,14 +1,13 @@
 package com.poly.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.entity.Account;
@@ -27,8 +26,26 @@ public class DefaultController {
 	@Autowired
 	private AccountService accountService;
 
+	private void addUserInfoToModel(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) principal;
+			String username = userDetails.getUsername(); // Lấy username từ UserDetails
+
+			// Lấy thông tin Account từ database
+			Optional<Account> accountOptional = accountService.findByUsername(username);
+			if (accountOptional.isPresent()) {
+				Account account = accountOptional.get();
+				model.addAttribute("user", account); // Có thể truy xuất ${user.fullname}, ${user.email}, ...
+				model.addAttribute("name", account.getFullname()); // Gửi fullname tới Thymeleaf (ví dụ ở navbar)
+			}
+		}
+	}
+
 	@RequestMapping("/")
 	public String index(Model model) {
+		addUserInfoToModel(model);
 
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
@@ -38,83 +55,10 @@ public class DefaultController {
 		return ("product/list");
 	}
 
-	/*
-	 * @RequestMapping("/category/{id}") public String
-	 * FindProductByCategory(@PathVariable String id, Model model) {
-	 * 
-	 * List<Category> categories = categoryService.findAll(); List<Product> products
-	 * = productService.getProductsByCategory(id); model.addAttribute("categories",
-	 * categories); model.addAttribute("products", products); return
-	 * ("product/list"); }
-	 */
-
-	/*
-	 * @RequestMapping("/product/{id}") public String ProductDetail(@PathVariable
-	 * Integer id, Model model) {
-	 * 
-	 * List<Category> categories = categoryService.findAll(); Product product =
-	 * productService.findById(id); // Lấy danh sách sản phẩm cùng danh mục
-	 * List<Product> relatedProducts =
-	 * productService.getProductsByCategory(product.getCategory().getId());
-	 * model.addAttribute("categories", categories); model.addAttribute("product",
-	 * product); model.addAttribute("relatedProducts", relatedProducts); return
-	 * ("product/detail"); }
-	 */
-
 	@RequestMapping("/template")
-	public String template() {
+	public String template(Model model) {
+		addUserInfoToModel(model);
 		return ("template");
-	}
-
-	@RequestMapping("/login")
-	public String login() {
-		return ("account/login");
-	}
-
-	@GetMapping("/register")
-	public String registerForm(Model model) {
-		model.addAttribute("user", new Account());
-		return "account/register";
-	}
-
-	@PostMapping("/register")
-	public String processRegister(@ModelAttribute("user") Account user, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			return "account/register";
-		}
-
-		try {
-			accountService.save(user);
-		} catch (RuntimeException e) {
-			model.addAttribute("error", e.getMessage());
-			return "account/register";
-		}
-
-		return "redirect:/register?success";
-	}
-
-	@RequestMapping("/forgot-password")
-	public String forgot_password() {
-		return ("account/forgot-password");
-	}
-
-	@RequestMapping("/profile")
-	public String profile() {
-		return ("account/profile");
-	}
-
-	@RequestMapping("/my-cart")
-	public String my_cart(Model model) {
-
-		List<Category> categories = categoryService.findAll();
-		model.addAttribute("categories", categories);
-
-		return ("cart/my-cart");
-	}
-
-	@RequestMapping("/my-order")
-	public String my_order() {
-		return ("order/my-order");
 	}
 
 }
