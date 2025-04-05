@@ -1,7 +1,12 @@
 package com.poly.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +26,25 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityController {
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	private void addUserInfoToModel(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) principal;
+			String username = userDetails.getUsername(); // Lấy username từ UserDetails
+
+			// Lấy thông tin Account từ database
+			Optional<Account> accountOptional = accountService.findByUsername(username);
+			if (accountOptional.isPresent()) {
+				Account account = accountOptional.get();
+				model.addAttribute("user", account); // Có thể truy xuất ${user.fullname}, ${user.email}, ...
+				model.addAttribute("name", account.getFullname()); // Gửi fullname tới Thymeleaf (ví dụ ở navbar)
+			}
+		}
+	}
 
 	@RequestMapping("/login")
 	public String login() {
@@ -32,7 +56,7 @@ public class SecurityController {
 		if (authentication != null) {
 			new SecurityContextLogoutHandler().logout(request, response, authentication);
 		}
-		return "redirect:/login";
+		return "redirect:/login?logout";
 	}
 
 	@GetMapping("/register")
@@ -48,9 +72,12 @@ public class SecurityController {
 		}
 
 		try {
+			user.setFullname("Anonymous");
+			user.setPhoto("user.png");
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			accountService.save(user);
 		} catch (RuntimeException e) {
-			model.addAttribute("error", e.getMessage());
+			model.addAttribute("error", "Tạo tài khoản thất bại!");
 			return "account/register";
 		}
 
@@ -63,7 +90,8 @@ public class SecurityController {
 	}
 
 	@RequestMapping("/profile")
-	public String profile() {
+	public String profile(Model model) {
+		addUserInfoToModel(model);
 		return ("account/profile");
 	}
 

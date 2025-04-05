@@ -23,6 +23,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public Optional<Account> findByUsername(String username) {
+		return accountRepository.findById(username); // username là @Id
+	}
+
+	@Override
 	public CustomUserDetails findById(String username) {
 		Optional<Account> accountOpt = accountRepository.findById(username);
 		if (accountOpt.isPresent()) {
