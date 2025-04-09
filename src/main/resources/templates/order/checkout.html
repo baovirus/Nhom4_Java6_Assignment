@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}"
+	style="background-color: #F5F5FA;">
+
+<body>
+	<main>
+		<div class="row container m-0 p-0">
+			<!-- Article -->
+			<article
+				class="col-sm-12 col-md-10 main-article">
+				<div class="card shadow mb-4 border-0">
+					<div class="card-header bg-primary text-white">
+						<h5 class="mb-0">
+							<i class="fa fa-credit-card-alt mr-2"></i>Thanh Toán Đơn Hàng
+						</h5>
+					</div>
+
+					<div class="card-body">
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label class="form-label font-weight-bold">Người thanh
+									toán:</label>
+								<div
+									class="form-control-plaintext border rounded px-3 py-2 bg-light">
+									[[${remoteUser}]]</div>
+							</div>
+
+							<div class="col-md-6">
+								<label class="form-label font-weight-bold">Ngày đặt
+									hàng:</label>
+								<div
+									class="form-control-plaintext border rounded px-3 py-2 bg-light">
+									{{order.createDate | date : 'dd-MM-yyyy'}}</div>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label font-weight-bold">Địa chỉ giao
+								hàng:</label>
+							<textarea ng-model="order.address" class="form-control" rows="3"
+								placeholder="Nhập địa chỉ giao hàng..."></textarea>
+						</div>
+					</div>
+
+					<div class="card-footer text-right bg-white border-0">
+						<button ng-click="order.purchase()"
+							class="btn btn-success px-4 py-2">
+							<i class="fa fa-check-circle mr-1"></i> Thanh toán
+						</button>
+					</div>
+				</div>
+			</article>
+
+			<!-- Aside -->
+			<aside class="col-sm-0 col-md-2 p-2 main-side-bar">
+				<div th:replace="/components/_category.html"></div>
+			</aside>
+		</div>
+	</main>
+</body>
+
+</html>

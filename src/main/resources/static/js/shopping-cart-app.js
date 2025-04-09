@@ -77,4 +77,14 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 	// Tải giỏ hàng khi trang load
 	$scope.cart.loadFromLocalStorage();
+	
+	//============ THANH TOÁN ==========
+	$scope.order = {
+		createDate: new Date(),
+		address: "",
+		purchase(){
+			alert("Đặt hàng")
+		},
+		
+	}
 });
