@@ -28,7 +28,7 @@
 
 <!--  nhớ để vô lại --> 
 
-<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl" th:attr="ng-init=|username='${remoteUser}'|">
 	<div class="container-fluid m-0 p-0" style="background-color: #F5F5FA;">
 		<!-- HEADER -->
 		<header class="row">

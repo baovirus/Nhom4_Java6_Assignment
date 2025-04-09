@@ -4,9 +4,70 @@
 	style="background-color: #F5F5FA;">
 
 <body>
-<main>
-Đơn hàng của tôi
-</main>
+	<main>
+		<div class="container mt-4">
+			<!-- ORDER INFORMATION -->
+			<div class="card mb-4">
+				<div class="card-header bg-primary text-white">
+					<strong>ORDER INFORMATION</strong>
+				</div>
+				<div class="card-body">
+					<div class="form-row mb-3">
+						<div class="col-md-4">
+							<label>Order Number:</label> <input type="text"
+								class="form-control" th:value="${order.id}" readonly>
+						</div>
+						<div class="col-md-4">
+							<label>Purchaser:</label> <input type="text" class="form-control"
+								th:value="${order.account.username}" readonly>
+						</div>
+						<div class="col-md-4">
+							<label>Purchased Date:</label> <input type="text"
+								class="form-control"
+								th:value="${#dates.format(order.createDate, 'yyyy-MM-dd')}"
+								readonly>
+						</div>
+					</div>
+					<div>
+						<label>Shipping Address:</label>
+						<textarea class="form-control" rows="2" readonly
+							th:text="${order.address}">Shipping Address</textarea>
+					</div>
+				</div>
+			</div>
+
+			<!-- ORDER LINES -->
+			<div class="card">
+				<div class="card-header bg-primary text-white">
+					<strong>ORDER LINES</strong>
+				</div>
+				<div class="card-body p-0">
+					<table class="table table-bordered m-0">
+						<thead class="thead-light">
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="detail : ${order.orderDetails}">
+								<td th:text="${detail.product.id}"></td>
+								<td th:text="${detail.product.name}"></td>
+								<td
+									th:text="${#numbers.formatDecimal(detail.price, 1, 'POINT', 2, 'NONE')}"></td>
+								<td th:text="${detail.quantity}"></td>
+								<td
+									th:text="${#numbers.formatDecimal(detail.price * detail.quantity, 1, 'POINT', 2, 'NONE')}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
 
 </body>
 

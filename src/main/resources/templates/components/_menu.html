@@ -55,14 +55,14 @@
 							<hr>
 							<li><a class="dropdown-item" href="/profile">Thông tin tài khoản</a></li>
 							<li><a class="dropdown-item" href="/admin/">Chức năng quản lý</a></li>
-							<li><a class="dropdown-item" href="/order/checkout">Đơn hàng của tôi</a></li>
+							<li><a class="dropdown-item" href="/order/list">Đơn hàng của tôi</a></li>
 							<hr>
 							<li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
 						</ul>
 					</div> 
 				</li>
 				<li class="nav-item"><a class="nav-link position-relative"
-					href="/my-cart"> <i class="bi bi-cart"></i> Giỏ hàng <span
+					href="/cart"> <i class="bi bi-cart"></i> Giỏ hàng <span
 						class="position-absolute top-10 start-80 translate-middle badge bg-danger"> {{cart.count}} </span>
 				</a></li>
 			</ul>

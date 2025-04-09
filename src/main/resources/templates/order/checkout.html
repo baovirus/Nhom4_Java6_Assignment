@@ -8,8 +8,8 @@
 		<div class="row container m-0 p-0">
 			<!-- Article -->
 			<article
-				class="col-sm-12 col-md-10 main-article">
-				<div class="card shadow mb-4 border-0">
+				class="col-sm-12 col-md-12 main-article">
+				<div class="card shadow mb-4 border-0 mt-3">
 					<div class="card-header bg-primary text-white">
 						<h5 class="mb-0">
 							<i class="fa fa-credit-card-alt mr-2"></i>Thanh Toán Đơn Hàng
@@ -22,7 +22,7 @@
 								<label class="form-label font-weight-bold">Người thanh
 									toán:</label>
 								<div
-									class="form-control-plaintext border rounded px-3 py-2 bg-light">
+									class="form-control-plaintext border rounded px-3 py-2 bg-light" id="username">
 									[[${remoteUser}]]</div>
 							</div>
 
@@ -50,12 +50,14 @@
 						</button>
 					</div>
 				</div>
+				
+				<div th:replace="~{/cart/view :: shopping_cart}"></div>
 			</article>
 
 			<!-- Aside -->
-			<aside class="col-sm-0 col-md-2 p-2 main-side-bar">
+			<!-- <aside class="col-sm-0 col-md-2 p-2 main-side-bar">
 				<div th:replace="/components/_category.html"></div>
-			</aside>
+			</aside> -->
 		</div>
 	</main>
 </body>

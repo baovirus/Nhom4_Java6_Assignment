@@ -40,20 +40,14 @@ public class ShoppingCartController {
 		}
 	}
 
-	@RequestMapping("/my-cart")
+	@RequestMapping("/cart")
 	public String my_cart(Model model) {
 		addUserInfoToModel(model);
 
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
 
-		return ("cart/my-cart");
-	}
-
-	@RequestMapping("/my-order")
-	public String my_order(Model model) {
-		addUserInfoToModel(model);
-		return ("order/my-order");
+		return ("cart/view");
 	}
 
 }

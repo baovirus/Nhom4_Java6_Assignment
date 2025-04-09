@@ -4,9 +4,58 @@
 	style="background-color: #F5F5FA;">
 
 <body>
-<main>
-Đơn hàng của tôi
-</main>
+	<main>
+		<!DOCTYPE html>
+		<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Your Orders</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+.btn-icon {
+	padding: 4px 10px;
+}
+</style>
+</head>
+<body>
+	<div class="container mt-4">
+		<div class="card">
+			<div class="card-header bg-primary text-white">
+				<strong>YOUR ORDERS PURCHASED</strong>
+			</div>
+			<div class="card-body p-0">
+				<table class="table table-bordered m-0">
+					<thead class="thead-light">
+						<tr>
+							<th>No.</th>
+							<th>Order No.</th>
+							<th>Order Date</th>
+							<th>Shipping Address</th>
+							<th style="width: 60px;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="order, iterStat : ${orders}">
+							<td th:text="${iterStat.index}"></td>
+							<td th:text="${order.id}"></td>
+							<td th:text="${#dates.format(order.createDate, 'yyyy-MM-dd')}"></td>
+							<td th:text="${order.address}"></td>
+							<td class="text-center"><a
+								th:href="@{/order/detail/{id}(id=${order.id})}"
+								class="btn btn-outline-primary btn-icon"> 🔍 </a></td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(orders)}">
+							<td colspan="5" class="text-center">No orders found.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+		</html>
+
+	</main>
 
 </body>
 

@@ -8,12 +8,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.entity.Account;
 import com.poly.entity.Category;
 import com.poly.service.AccountService;
 import com.poly.service.CategoryService;
+import com.poly.service.OrderService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -24,6 +26,8 @@ public class OrderController {
 	private CategoryService categoryService;
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private OrderService orderService;
 
 	private void addUserInfoToModel(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,12 +60,17 @@ public class OrderController {
 	}
 
 	@RequestMapping("/order/list")
-	public String list() {
+	public String list(Model model, HttpServletRequest request) {
+		addUserInfoToModel(model);
+		String username = request.getRemoteUser();
+		model.addAttribute("orders", orderService.findByUsername(username));
 		return "order/list";
 	}
 
 	@RequestMapping("/order/detail/{id}")
-	public String detail() {
+	public String detail(@PathVariable("id") Long id, Model model) {
+		addUserInfoToModel(model);
+		model.addAttribute("order", orderService.findById(id));
 		return "order/detail";
 	}
 }

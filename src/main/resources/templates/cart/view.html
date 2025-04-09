@@ -5,17 +5,18 @@
 
 <body>
 	<main>
-		<div class="row container m-0 p-0">
+		<div class="row container m-0 p-0" th:fragment="shopping_cart">
 			<!-- Article -->
 			<article
-				class="col-sm-12 col-md-10 main-article bg-white border rounded">
+				class="col-sm-12 col-md-12 main-article bg-white border rounded">
 				<h3 class="my-3">Giỏ hàng</h3>
 				<hr>
 
 				<div class="mb-3">
 					<button ng-click="cart.clear()" class="btn btn-danger">Làm
 						trống</button>
-					<a th:href="@{/order/checkout}" class="btn btn-primary">Thanh toán</a>
+					<a th:href="@{/order/checkout}" class="btn btn-primary">Thanh
+						toán</a>
 				</div>
 
 				<table class="table table-default table-bordered">
@@ -33,9 +34,8 @@
 					<tbody>
 						<tr ng-repeat="item in cart.items">
 							<td>{{item.id}}</td>
-							<td>
-    <img ng-src="{{'/image/product_image/' + item.image}}" alt="Product Image" height="100" width="100%">
-</td>
+							<td><img ng-src="{{'/image/product_image/' + item.image}}"
+								alt="Product Image" height="100" width="100%"></td>
 
 
 							<td>{{item.name}}</td>
@@ -56,9 +56,9 @@
 			</article>
 
 			<!-- Aside -->
-			<aside class="col-sm-0 col-md-2 p-2 main-side-bar">
+			<!-- <aside class="col-sm-0 col-md-2 p-2 main-side-bar">
 				<div th:replace="/components/_category.html"></div>
-			</aside>
+			</aside> -->
 
 		</div>
 	</main>
