@@ -1,5 +1,6 @@
 package com.poly.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.entity.Account;
+import com.poly.entity.Category;
+import com.poly.service.AccountService;
 import com.poly.service.CategoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +22,8 @@ public class OrderController {
 
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private AccountService accountService;
 
 	private void addUserInfoToModel(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -39,8 +44,14 @@ public class OrderController {
 
 	@RequestMapping("/order/checkout")
 	public String checkout(Model model, HttpServletRequest request) {
+		addUserInfoToModel(model);
+
 		String remoteUser = request.getRemoteUser(); // hoặc request.getUserPrincipal().getName()
 		model.addAttribute("remoteUser", remoteUser);
+
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories", categories);
+
 		return "order/checkout";
 	}
 
