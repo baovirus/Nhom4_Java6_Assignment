@@ -52,11 +52,11 @@ public class SecurityConfig {
 				.authorizeHttpRequests(auth -> auth
 						// Phân quyền chi tiết như thầy
 						.requestMatchers("/order/**").authenticated().requestMatchers("/admin/**")
-						.hasAnyRole("STAF", "DIRE").requestMatchers("/rest/authorities/**").hasRole("DIRE")
+						.hasAnyAuthority("STAF", "DIRE").requestMatchers("/rest/authorities/**").hasAuthority("DIRE")
 
 						// Cho phép tất cả với các tài nguyên công cộng
 						.requestMatchers("/login/**", "/register/**", "/forgot-password/**", "/product/**", "/rest/**",
-								"/js/**", "/css/**", "/image/**", "/bootstrap-5.3.3-dist/**", "/")
+								"/js/**", "/css/**", "/image/**", "/bootstrap-5.3.3-dist/**")
 						.permitAll()
 
 						.anyRequest().authenticated())

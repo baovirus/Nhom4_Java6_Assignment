@@ -18,7 +18,7 @@ import com.poly.service.CategoryService;
 import com.poly.service.ProductService;
 
 @Controller
-public class DefaultController {
+public class HomeController {
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
@@ -53,6 +53,12 @@ public class DefaultController {
 		List<Product> products = productService.findAll();
 		model.addAttribute("products", products);
 		return ("product/list");
+	}
+
+	@RequestMapping({ "/admin", "/admin/home/index" })
+	public String admin(Model model) {
+		addUserInfoToModel(model);
+		return ("forward:/admin/index.html");
 	}
 
 	@RequestMapping("/template")

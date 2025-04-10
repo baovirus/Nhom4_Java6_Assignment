@@ -1,10 +1,12 @@
 package com.poly.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.poly.entity.Account;
@@ -14,6 +16,7 @@ import com.poly.service.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {
+
 	@Autowired
 	private AccountRepository accountRepository;
 
@@ -24,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Optional<Account> findByUsername(String username) {
-		return accountRepository.findById(username); // username là @Id
+		return accountRepository.findById(username);
 	}
 
 	@Override
@@ -32,13 +35,15 @@ public class AccountServiceImpl implements AccountService {
 		Optional<Account> accountOpt = accountRepository.findById(username);
 		if (accountOpt.isPresent()) {
 			Account account = accountOpt.get();
-			return new CustomUserDetails(account.getUsername(), account.getPassword(), new ArrayList<>() // Cung cấp
-																											// danh sách
-																											// quyền nếu
-																											// cần
-			);
+
+			// ⚠️ Chuyển authorities sang dạng Spring hiểu được
+			List<GrantedAuthority> authorities = account.getAuthorities().stream()
+					.map(auth -> new SimpleGrantedAuthority(auth.getRole().getId())) // Ví dụ: "STAF", "DIRE"
+					.collect(Collectors.toList());
+
+			return new CustomUserDetails(account.getUsername(), account.getPassword(), authorities);
 		}
-		return null; // Hoặc ném ngoại lệ nếu không tìm thấy
+		return null;
 	}
 
 	@Override

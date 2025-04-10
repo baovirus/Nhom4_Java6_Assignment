@@ -28,7 +28,7 @@
 				</div>
 			</div> -->
 		</div>
-		
+
 		<!-- Nếu chưa đăng nhập -->
 		<ul class="navbar-nav " th:if="${user == null}">
 			<li class="head-nav-li"><a
@@ -48,22 +48,31 @@
 					<div class="btn-group">
 						<a class="dropdown-toggle nav-link" type="button"
 							data-bs-toggle="dropdown" data-bs-auto-close="true"
-							aria-expanded="false" href="#"><i class="bi bi-person"></i> Tài
-						khoản</a>
+							aria-expanded="false" href="#"><i class="bi bi-person"></i>
+							Tài khoản</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#" th:text="'Xin chào, '+${user.fullname}"></a></li>
+							<li><a class="dropdown-item" href="#"
+								th:text="'Xin chào, '+${user.fullname}"></a></li>
 							<hr>
-							<li><a class="dropdown-item" href="/profile">Thông tin tài khoản</a></li>
-							<li><a class="dropdown-item" href="/admin/">Chức năng quản lý</a></li>
-							<li><a class="dropdown-item" href="/order/list">Đơn hàng của tôi</a></li>
+							<li><a class="dropdown-item" href="/profile">Thông tin
+									tài khoản</a></li>
+							<th:block sec:authorize="hasAuthority('STAF')">
+								<li><a class="dropdown-item" href="/admin">Chức năng
+										quản lý</a></li>
+							</th:block>
+
+							<li><a class="dropdown-item" href="/order/list">Đơn hàng
+									của tôi</a></li>
 							<hr>
-							<li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
+							<li><a class="dropdown-item" th:href="@{/logout}">Đăng
+									xuất</a></li>
 						</ul>
-					</div> 
+					</div>
 				</li>
 				<li class="nav-item"><a class="nav-link position-relative"
 					href="/cart"> <i class="bi bi-cart"></i> Giỏ hàng <span
-						class="position-absolute top-10 start-80 translate-middle badge bg-danger"> {{cart.count}} </span>
+						class="position-absolute top-10 start-80 translate-middle badge bg-danger">
+							{{cart.count}} </span>
 				</a></li>
 			</ul>
 		</div>
