@@ -30,7 +30,7 @@
 		</div>
 
 		<!-- Nếu chưa đăng nhập -->
-		<ul class="navbar-nav " th:if="${user == null}">
+		<ul class="navbar-nav" th:if="${user == null}">
 			<li class="head-nav-li"><a
 				style="text-decoration: none; font-weight: bold;" href="/login">Đăng
 					nhập</a></li>
@@ -54,12 +54,14 @@
 							<li><a class="dropdown-item" href="#"
 								th:text="'Xin chào, '+${user.fullname}"></a></li>
 							<hr>
-							<li><a class="dropdown-item" href="/profile">Thông tin
-									tài khoản</a></li>
 							<th:block sec:authorize="hasAuthority('STAF')">
 								<li><a class="dropdown-item" href="/admin">Chức năng
 										quản lý</a></li>
 							</th:block>
+							<hr>
+							<li><a class="dropdown-item" href="/profile">Thông tin
+									tài khoản</a></li>
+							
 
 							<li><a class="dropdown-item" href="/order/list">Đơn hàng
 									của tôi</a></li>

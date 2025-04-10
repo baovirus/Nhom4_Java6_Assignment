@@ -42,13 +42,6 @@
 			class="container-fluid d-flex justify-content-center mx-0 mt-4 p-0">
 			<!-- Main Content -->
 			<div class="row container-fluid mx-5 p-0">
-				<p>Authorities của bạn là:</p>
-				<ul>
-					<li th:each="auth : ${#authentication.authorities}"
-						th:text="${auth.authority}">Role</li>
-				</ul>
-
-
 				<main th:replace="${main}"></main>
 				<!-- Footer -->
 				<footer th:replace="/components/_footer.html"></footer>
