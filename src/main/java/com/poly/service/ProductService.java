@@ -6,14 +6,21 @@ import com.poly.entity.Product;
 
 public interface ProductService {
 
+	// Lấy sản phẩm theo loại
 	List<Product> getProductsByCategory(String categoryId);
 
-	// DAO
+	// Lấy tất cả sản phẩm
 	List<Product> findAll();
 
+	// Lấy sản phẩm theo id
 	Product findById(Integer id);
 
-	Product save(Product product);
+	// Tạo mới sản phẩm
+	Product create(Product product);
 
+	// Cập nhật sản phẩm
+	Product update(Product product);
+
+	// Xoá sản phẩm theo id
 	void delete(Integer id);
 }

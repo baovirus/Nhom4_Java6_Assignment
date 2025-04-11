@@ -1,54 +1,54 @@
 <div class="card">
 	<div class="card-header bg-light">
-		<h5 class="text-primary mb-0">PRODUCT EDITION</h5>
+		<h5 class="text-primary mb-0">CHỈNH SỬA SẢN PHẨM</h5>
 	</div>
 	<div class="card-body">
-		<form name="form">
+		<form name="productForm">
 			<div class="row mb-3">
 				<div class="col-md-4 text-center">
-					<img ng-src="{{form.image || '/image/cloud-upload.jpg'}}" class="img-fluid" style="max-height: 150px;">
+					<img ng-src="{{'/image/product_image/' + form.image || '/image/cloud-upload.jpg'}}" class="img-fluid" style="max-height: 150px;">
 					<input type="file" class="form-control mt-2" onchange="angular.element(this).scope().imageChanged(this)">
 				</div>
 
 				<div class="col-md-8">
 					<div class="row mb-2">
 						<div class="col-md-6">
-							<label class="form-label">Name</label>
+							<label class="form-label">Tên sản phẩm</label>
 							<input type="text" class="form-control" ng-model="form.name">
 						</div>
 						<div class="col-md-6">
-							<label class="form-label">Price</label>
+							<label class="form-label">Đơn giá</label>
 							<input type="number" class="form-control" ng-model="form.price">
 						</div>
 					</div>
 
 					<div class="row mb-2">
 						<div class="col-md-6">
-							<label class="form-label">Image</label>
+							<label class="form-label">Hình ảnh</label>
 							<input type="text" class="form-control" ng-model="form.image" readonly>
 						</div>
 						<div class="col-md-6">
-							<label class="form-label">Category</label>
+							<label class="form-label">Danh mục</label>
 							<select class="form-select" ng-model="form.category" ng-options="c.name for c in categories track by c.id">
-								<option value="">-- Select Category --</option>
+								<option value="">-- Chọn danh mục --</option>
 							</select>
 						</div>
 					</div>
 
 					<div class="row mb-2">
 						<div class="col-md-6">
-							<label class="form-label">Create Date</label>
+							<label class="form-label">Ngày tạo</label>
 							<input type="date" class="form-control" ng-model="form.createDate">
 						</div>
 						<div class="col-md-6">
-							<label class="form-label">Available?</label>
+							<label class="form-label">Có sẵn?</label>
 							<div class="form-check form-check-inline ms-2">
 								<input type="radio" class="form-check-input" name="available" ng-model="form.available" ng-value="true">
-								<label class="form-check-label">Yes</label>
+								<label class="form-check-label">Có</label>
 							</div>
 							<div class="form-check form-check-inline">
 								<input type="radio" class="form-check-input" name="available" ng-model="form.available" ng-value="false">
-								<label class="form-check-label">No</label>
+								<label class="form-check-label">Không</label>
 							</div>
 						</div>
 					</div>
