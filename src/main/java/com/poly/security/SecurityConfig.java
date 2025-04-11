@@ -56,7 +56,7 @@ public class SecurityConfig {
 
 						// Cho phép tất cả với các tài nguyên công cộng
 						.requestMatchers("/login/**", "/register/**", "/forgot-password/**", "/product/**", "/rest/**",
-								"/js/**", "/css/**", "/image/**", "/bootstrap-5.3.3-dist/**")
+								"/js/**", "/css/**", "/image/**", "/bootstrap-5.3.3-dist/**", "/")
 						.permitAll()
 
 						.anyRequest().authenticated())
