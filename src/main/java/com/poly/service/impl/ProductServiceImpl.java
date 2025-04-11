@@ -30,6 +30,10 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findById(id).orElse(null);
 	}
 
+	public List<Product> searchByKeyword(String keyword) {
+		return productRepository.findByNameContainingIgnoreCase(keyword);
+	}
+
 	@Override
 	public Product create(Product product) {
 		return productRepository.save(product);

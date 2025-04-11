@@ -23,4 +23,6 @@ public interface ProductService {
 
 	// Xoá sản phẩm theo id
 	void delete(Integer id);
+
+	List<Product> searchByKeyword(String keyword);
 }

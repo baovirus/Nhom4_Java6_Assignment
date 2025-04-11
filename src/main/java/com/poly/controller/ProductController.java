@@ -8,8 +8,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poly.entity.Account;
 import com.poly.entity.Category;
@@ -80,4 +82,18 @@ public class ProductController {
 		model.addAttribute("products", products);
 		return ("product/list");
 	}
+
+	// Chức năng tìm kiếm
+	@GetMapping("/search")
+	public String search(@RequestParam("keyword") String keyword, Model model) {
+		addUserInfoToModel(model);
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories", categories);
+
+		List<Product> results = productService.searchByKeyword(keyword);
+		model.addAttribute("products", results);
+		model.addAttribute("keyword", keyword); // để hiển thị lại từ khóa tìm kiếm
+		return "product/list"; // Trang kết quả tìm kiếm
+	}
+
 }

@@ -13,9 +13,13 @@ public interface AccountService {
 
 	Optional<Account> findByUsername(String username);
 
+	Account findAccountById(String username);
+
 	Account save(Account account);
 
 	void delete(String username);
 
 	List<Account> getAdministrators();
+
+	boolean existsById(String username);
 }
