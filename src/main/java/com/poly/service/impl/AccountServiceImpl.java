@@ -52,6 +52,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public Account findAccountById(String username) {
+		return accountRepository.findById(username).orElse(null);
+	}
+
+	@Override
 	public Account save(Account account) {
 		return accountRepository.save(account);
 	}
