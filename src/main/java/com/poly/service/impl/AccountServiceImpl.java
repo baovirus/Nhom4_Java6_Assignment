@@ -26,6 +26,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public List<Account> getAdministrators() {
+		return accountRepository.getAdministrators();
+	}
+
+	@Override
 	public Optional<Account> findByUsername(String username) {
 		return accountRepository.findById(username);
 	}
