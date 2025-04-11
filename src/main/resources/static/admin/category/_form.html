@@ -5,14 +5,25 @@
 
 	<div class="card-body">
 		<div class="form-group mb-3">
-			<label for="name">Tên danh mục:</label>
-			<input id="name" ng-model="form.name" class="form-control" placeholder="Nhập tên danh mục">
+			<label for="name">Tên danh mục:</label> <input id="name"
+				ng-model="form.name" class="form-control"
+				placeholder="Nhập tên danh mục">
 		</div>
 	</div>
 
-	<div class="card-footer text-end">
-		<button class="btn btn-secondary me-2" ng-click="reset()">Làm mới</button>
-		<button class="btn btn-success me-2" ng-click="create()" ng-if="!form.id">Thêm mới</button>
-		<button class="btn btn-primary" ng-click="update()" ng-if="form.id">Cập nhật</button>
+	<div class="text-end m-3">
+		<button class="btn btn-primary me-2" type="button" ng-click="create()">
+			<i class="bi bi-plus-lg"></i> Create
+		</button>
+		<button class="btn btn-success me-2" type="button" ng-click="update()">
+			<i class="bi bi-check-lg"></i> Update
+		</button>
+		<button class="btn btn-danger me-2" type="button"
+			ng-click="delete(form)">
+			<i class="bi bi-trash"></i> Delete
+		</button>
+		<button class="btn btn-info" type="button" ng-click="reset()">
+			<i class="bi bi-arrow-clockwise"></i> Reset
+		</button>
 	</div>
 </div>
