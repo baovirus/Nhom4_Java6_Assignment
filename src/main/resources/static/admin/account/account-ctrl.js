@@ -15,14 +15,15 @@ app.controller("account-ctrl", function ($scope, $http) {
 
 	// Reset form
 	$scope.reset = function () {
-		$scope.form = {
-			username: "",
-			fullname: "",
-			email: "",
-			phoneNumber: "",
-			photo: "cloud-upload.jpg"
-		};
+	    $scope.form = {
+	        username: "",
+	        password: "",
+	        fullname: "",
+	        email: "",
+	        photo: "user.png"
+	    };
 	};
+
 
 	// Hiển thị lên form khi bấm "Edit"
 	$scope.edit = function (item) {
@@ -79,7 +80,7 @@ app.controller("account-ctrl", function ($scope, $http) {
 	$scope.imageChanged = function (files) {
 		let data = new FormData();
 		data.append('file', files.files[0]);
-		$http.post('/rest/upload/account_image', data, {
+		$http.post('/rest/upload/account', data, {
 			transformRequest: angular.identity,
 			headers: { 'Content-Type': undefined }
 		}).then(resp => {

@@ -26,6 +26,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public boolean existsById(String username) {
+		return accountRepository.existsById(username);
+	}
+
+	@Override
 	public List<Account> getAdministrators() {
 		return accountRepository.getAdministrators();
 	}

@@ -9,4 +9,7 @@ import com.poly.entity.Product;
 public interface ProductRepository extends JpaRepository<Product, Integer> { // ID là Integer
 	// Lấy danh sách sản phẩm theo id của category
 	List<Product> findByCategoryId(String categoryId);
+
+	List<Product> findByNameContainingIgnoreCase(String keyword);
+
 }

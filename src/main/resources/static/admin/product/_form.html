@@ -6,7 +6,7 @@
 		<form name="productForm">
 			<div class="row mb-3">
 				<div class="col-md-4 text-center">
-					<img ng-src="{{'/image/cloud-upload.jpg' || '/image/product_image/' + form.image}}" class="img-fluid" style="max-height: 150px;">
+					<img ng-src="{{form.photo ? '/image/product_image/' + form.photo : '/image/cloud-upload.jpg'}}" class="img-fluid" style="max-height: 150px;">
 					<input type="file" class="form-control mt-2" onchange="angular.element(this).scope().imageChanged(this)">
 				</div>
 

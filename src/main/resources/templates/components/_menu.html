@@ -8,11 +8,14 @@
 		<div class="row">
 			<!-- Ô tìm kiếm -->
 			<div class="col-12">
-				<form class="d-flex justify-content-center mx-3">
+				<form class="d-flex justify-content-center mx-3" method="get"
+					th:action="@{/product/search}">
 					<input class="form-control search-box me-2" type="search"
-						placeholder="tìm kiếm" aria-label="Search">
+						name="keyword" placeholder="Tìm kiếm sản phẩm..."
+						aria-label="Search">
 					<button class="btn btn-primary" type="submit">Tìm kiếm</button>
 				</form>
+
 			</div>
 			<!-- Các danh mục -->
 			<!-- 
@@ -59,9 +62,9 @@
 										quản lý</a></li>
 								<hr>
 							</th:block>
-							<li><a class="dropdown-item" href="/profile">Thông tin
-									tài khoản</a></li>
-							
+							<!-- <li><a class="dropdown-item" href="/profile">Thông tin
+									tài khoản</a></li> -->
+
 
 							<li><a class="dropdown-item" href="/order/list">Đơn hàng
 									của tôi</a></li>

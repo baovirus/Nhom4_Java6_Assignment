@@ -20,4 +20,6 @@ public interface AccountService {
 	void delete(String username);
 
 	List<Account> getAdministrators();
+
+	boolean existsById(String username);
 }
