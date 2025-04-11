@@ -1,6 +1,6 @@
 const app = angular.module("shopping-cart-app", []);
 
-app.controller("shopping-cart-ctrl", function ($scope, $http) {
+app.controller("shopping-cart-ctrl", function($scope, $http) {
 	$scope.cart = {
 		items: [],
 
@@ -38,14 +38,14 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 		// Tính tổng số lượng sản phẩm trong giỏ hàng
 		get count() {
-			return Array.isArray(this.items) 
+			return Array.isArray(this.items)
 				? this.items.reduce((total, item) => total + (item.qty || 0), 0)
 				: 0;
 		},
 
 		// Tính tổng tiền trong giỏ hàng
 		get amount() {
-			return Array.isArray(this.items) 
+			return Array.isArray(this.items)
 				? this.items.reduce((total, item) => total + (item.qty * (item.price || 0)), 0)
 				: 0;
 		},
@@ -77,4 +77,35 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
 	// Tải giỏ hàng khi trang load
 	$scope.cart.loadFromLocalStorage();
+
+	//============ THANH TOÁN ==========
+	$scope.order = {
+		createDate: new Date(),
+		address: "",
+		account: { username: $scope.username },
+		get orderDetails() {
+			return $scope.cart.items.map(item => {
+				return {
+					product: { id: item.id },
+					price: item.price,
+					quantity: item.qty
+				}
+			})
+		},
+		purchase() {
+			$scope.order.account = { username: $scope.username };
+			var order = angular.copy(this);
+			$http.post("/rest/orders", order).then(resp => {
+				console.log("Dữ liệu gửi đi:", $scope.order);
+				alert("Đặt hàng thành công!");
+				$scope.cart.clear();
+				location.href = "/order/detail/" + resp.data.id;
+			}).catch(error => {
+				console.log("Dữ liệu gửi đi:", $scope.order);
+				alert("Có lỗi xảy ra!");
+				console.log(error);
+			})
+		},
+
+	}
 });

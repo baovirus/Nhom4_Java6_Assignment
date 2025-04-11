@@ -8,23 +8,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.entity.Account;
 import com.poly.entity.Category;
-import com.poly.entity.Product;
 import com.poly.service.AccountService;
 import com.poly.service.CategoryService;
-import com.poly.service.ProductService;
+import com.poly.service.OrderService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class DefaultController {
+public class OrderController {
+
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
-	private ProductService productService;
-	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private OrderService orderService;
 
 	private void addUserInfoToModel(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -43,22 +46,31 @@ public class DefaultController {
 		}
 	}
 
-	@RequestMapping("/")
-	public String index(Model model) {
+	@RequestMapping("/order/checkout")
+	public String checkout(Model model, HttpServletRequest request) {
 		addUserInfoToModel(model);
+
+		String remoteUser = request.getRemoteUser(); // hoặc request.getUserPrincipal().getName()
+		model.addAttribute("remoteUser", remoteUser);
 
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("categories", categories);
 
-		List<Product> products = productService.findAll();
-		model.addAttribute("products", products);
-		return ("product/list");
+		return "order/checkout";
 	}
 
-	@RequestMapping("/template")
-	public String template(Model model) {
+	@RequestMapping("/order/list")
+	public String list(Model model, HttpServletRequest request) {
 		addUserInfoToModel(model);
-		return ("template");
+		String username = request.getRemoteUser();
+		model.addAttribute("orders", orderService.findByUsername(username));
+		return "order/list";
 	}
 
+	@RequestMapping("/order/detail/{id}")
+	public String detail(@PathVariable("id") Long id, Model model) {
+		addUserInfoToModel(model);
+		model.addAttribute("order", orderService.findById(id));
+		return "order/detail";
+	}
 }

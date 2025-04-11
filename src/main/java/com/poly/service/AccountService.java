@@ -16,4 +16,6 @@ public interface AccountService {
 	Account save(Account account);
 
 	void delete(String username);
+
+	List<Account> getAdministrators();
 }

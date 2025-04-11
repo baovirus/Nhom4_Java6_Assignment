@@ -11,17 +11,18 @@ import com.poly.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	@Autowired
-	private ProductRepository productRepository;
 
-	@Override
-	public List<Product> findAll() {
-		return productRepository.findAll();
-	}
+	@Autowired
+	ProductRepository productRepository;
 
 	@Override
 	public List<Product> getProductsByCategory(String categoryId) {
 		return productRepository.findByCategoryId(categoryId);
+	}
+
+	@Override
+	public List<Product> findAll() {
+		return productRepository.findAll();
 	}
 
 	@Override
@@ -30,7 +31,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product save(Product product) {
+	public Product create(Product product) {
+		return productRepository.save(product);
+	}
+
+	@Override
+	public Product update(Product product) {
 		return productRepository.save(product);
 	}
 

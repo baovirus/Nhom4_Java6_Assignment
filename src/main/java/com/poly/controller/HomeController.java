@@ -1,5 +1,6 @@
 package com.poly.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.entity.Account;
+import com.poly.entity.Category;
+import com.poly.entity.Product;
 import com.poly.service.AccountService;
 import com.poly.service.CategoryService;
 import com.poly.service.ProductService;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+public class HomeController {
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
@@ -44,7 +46,25 @@ public class AdminController {
 	@RequestMapping("/")
 	public String index(Model model) {
 		addUserInfoToModel(model);
-		return ("admin/dashboard");
+
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories", categories);
+
+		List<Product> products = productService.findAll();
+		model.addAttribute("products", products);
+		return ("product/list");
+	}
+
+	@RequestMapping({ "/admin", "/admin/home/index" })
+	public String admin(Model model) {
+		addUserInfoToModel(model);
+		return ("forward:/admin/index.html");
+	}
+
+	@RequestMapping("/template")
+	public String template(Model model) {
+		addUserInfoToModel(model);
+		return ("template");
 	}
 
 }

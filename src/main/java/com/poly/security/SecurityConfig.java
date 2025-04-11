@@ -7,6 +7,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -43,13 +44,27 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
-				auth -> auth
-						.requestMatchers("/login/**", "/register/**", "/forgot-password/**", "/product/**", "/js/**",
-								"/css/**", "/image/**", "/bootstrap-5.3.3-dist/**", "/")
-						.permitAll().anyRequest().authenticated())
+		http.csrf(csrf -> csrf.disable())
+
+				// Cho phép session login (nếu cần)
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+
+				.authorizeHttpRequests(auth -> auth
+						// Phân quyền chi tiết như thầy
+						.requestMatchers("/order/**").authenticated().requestMatchers("/admin/**")
+						.hasAnyAuthority("STAF", "DIRE").requestMatchers("/rest/authorities/**").hasAuthority("DIRE")
+
+						// Cho phép tất cả với các tài nguyên công cộng
+						.requestMatchers("/login/**", "/register/**", "/forgot-password/**", "/product/**", "/rest/**",
+								"/js/**", "/css/**", "/image/**", "/bootstrap-5.3.3-dist/**", "/")
+						.permitAll()
+
+						.anyRequest().authenticated())
+
 				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
+
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll());
+
 		return http.build();
 	}
 }

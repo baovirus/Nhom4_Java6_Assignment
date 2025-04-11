@@ -1,0 +1,26 @@
+<div class="card mt-3">
+	<div class="card-header bg-light">
+		<h5 class="text-primary mb-0">PHÂN QUYỀN SỬ DỤNG</h5>
+	</div>
+
+	<div class="card-body p-0">
+		<table class="table table-bordered mb-0">
+			<thead class="table-success text-center">
+				<tr>
+					<th>Tên người dùng</th>
+					<th ng-repeat="role in roles" class="text-center">{{role.name}}</th>
+				</tr>
+			</thead>	
+			<tbody class="text-center">
+				<tr ng-repeat="acc in admins">
+					<td class="text-start ps-3">{{acc.fullname}}</td>
+					<td ng-repeat="role in roles" class="text-center">
+						<input type="checkbox"
+							   ng-checked="authrity_of(acc, role)"
+							   ng-click="authrity_change(acc, role)">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
