@@ -1,6 +1,6 @@
-# 🛒 Spring Boot Online Shopping Website
+# 🛒 Spring Boot E-Commerce Website
 
-A full-featured online shopping web application developed using Spring Boot. This project includes user authentication, product browsing, cart management, order placement, and admin dashboard functionalities.
+A full-featured E-commerce web application developed using Spring Boot. This project includes user authentication, product browsing, cart management, order placement, and admin dashboard functionalities.
 
 ## 📌 Features
 
